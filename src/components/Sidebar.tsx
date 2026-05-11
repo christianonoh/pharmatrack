@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Package, Bell, Pill, X } from 'lucide-react';
+import { LayoutDashboard, Package, Bell, X } from 'lucide-react';
 import { cn } from '../lib/cn';
 
 interface SidebarProps {
