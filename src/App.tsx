@@ -1,14 +1,18 @@
-function App() {
+import { Route, Routes } from 'react-router-dom';
+import { AppLayout } from './components/AppLayout';
+import { DashboardPage } from './features/dashboard/DashboardPage';
+import { InventoryPage } from './features/inventory/InventoryPage';
+import { AlertsPage } from './features/alerts/AlertsPage';
 
+function App() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
-      <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
-          PharmaTrack
-        </h1>
-        
-      </div>
-    </main>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="inventory" element={<InventoryPage />} />
+        <Route path="alerts" element={<AlertsPage />} />
+      </Route>
+    </Routes>
   );
 }
 
