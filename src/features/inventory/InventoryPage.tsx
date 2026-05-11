@@ -10,6 +10,7 @@ import { MedicineTable } from './MedicineTable';
 import { MedicineFormModal } from './MedicineFormModal';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
 import { getStatus, STATUS_LABELS } from '../alerts/alertUtils';
+import { toast } from '../../lib/toast';
 
 type CategoryFilter = 'all' | (typeof MEDICINE_CATEGORIES)[number];
 type StatusFilter = 'all' | MedicineStatus;
@@ -65,8 +66,10 @@ export function InventoryPage() {
   function handleSubmit(input: MedicineInput) {
     if (editing) {
       update(editing.id, input);
+      toast.success('Medicine updated', `${input.name} saved.`);
     } else {
       add(input);
+      toast.success('Medicine added', `${input.name} added to inventory.`);
     }
     setFormOpen(false);
     setEditing(undefined);
@@ -74,7 +77,9 @@ export function InventoryPage() {
 
   function handleDeleteConfirm() {
     if (deleting) {
+      const { name } = deleting;
       remove(deleting.id);
+      toast.success('Medicine deleted', `${name} removed.`);
       setDeleting(null);
     }
   }
