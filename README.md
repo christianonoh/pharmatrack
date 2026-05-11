@@ -80,3 +80,180 @@ When multiple conditions apply, status priority is **expired â†’ expiring-soon â
 ## License
 
 For educational use.
+
+---
+
+# Product Requirements Document (PRD)
+
+**Pharmacy Stock & Expiry Manager**
+
+- **Prepared By:** Sarah Nnanyelugo (Client)
+- **Prepared For:** Christian Onoh (Developer)
+
+## 1. Project Overview
+
+**Product Name:** PharmaTrack
+
+### Product Description
+
+PharmaTrack is a web-based inventory management system designed for small and medium pharmacies to manage medicine stock, monitor expiry dates, track low inventory, and organize pharmaceutical records efficiently.
+
+The application helps reduce:
+
+- losses from expired medicines
+- stock shortages
+- manual inventory errors
+
+The system will provide a clean dashboard interface for managing medicines and viewing inventory alerts in real time.
+
+## 2. Problem Statement
+
+Many local pharmacies still manage inventory manually using notebooks or spreadsheets. This leads to:
+
+- expired medicines remaining on shelves
+- inaccurate stock counts
+- delayed restocking
+- difficulty tracking inventory performance
+
+PharmaTrack provides a simple digital solution to these challenges.
+
+## 3. Product Goals
+
+### Primary Goals
+
+- Digitize pharmacy inventory management
+- Reduce expired medicine losses
+- Improve stock monitoring
+- Provide simple inventory analytics
+
+### Secondary Goals
+
+- Improve record accessibility
+- Simplify medicine searching and filtering
+- Build a responsive and modern management interface
+
+## 4. Target Users
+
+### Primary Users
+
+- Small pharmacy owners
+- Pharmacy attendants
+- Drug store managers
+
+## 5. Scope
+
+### In Scope (MVP)
+
+**Authentication**
+
+- Simple login page (optional for MVP)
+
+**Dashboard**
+
+- Inventory overview
+- Expiry alerts
+- Low stock alerts
+- Statistics cards
+- Charts
+
+**Medicine Management**
+
+- Add medicine
+- Edit medicine
+- Delete medicine
+- View medicine details
+
+**Inventory Features**
+
+- Search medicines
+- Filter medicines
+- Categorize medicines
+
+**Alert System**
+
+- Expired medicines
+- Expiring soon medicines
+- Low stock medicines
+
+**Local Data Storage**
+
+- LocalStorage or Firebase
+
+## 6. Functional Requirements
+
+### 6.1 Dashboard Module
+
+**Description**
+
+Displays summary information and alerts.
+
+**Features**
+
+- Total medicines count
+- Total inventory value
+- Expired medicines count
+- Expiring soon count
+- Low stock count
+- Recent inventory activity
+
+**Charts**
+
+- Medicines by category
+- Inventory growth trend
+
+**Actions**
+
+- Add medicine
+- Edit medicine
+- Delete medicine
+- Search medicine
+- Filter medicines
+
+### 6.3 Expiry Monitoring Module
+
+**Description**
+
+Automatically identifies:
+
+- expired medicines
+- medicines expiring soon
+
+### 6.4 Low Stock Monitoring
+
+**Description**
+
+Detects medicines below minimum quantity threshold.
+
+### 6.5 Search & Filtering
+
+**Search By**
+
+- Medicine name
+- Supplier
+- Category
+
+**Filters**
+
+- Expired
+- Expiring Soon
+- Low Stock
+- Category
+
+## 7. Non-Functional Requirements
+
+### Responsiveness
+
+- Mobile-friendly
+- Tablet-friendly
+- Desktop optimized
+
+### Accessibility
+
+- Readable fonts
+- Keyboard-friendly forms
+- Clear status indicators
+
+### Reliability
+
+- Data persists after refresh
+- Prevent invalid form submissions
