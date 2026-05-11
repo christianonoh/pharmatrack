@@ -61,7 +61,9 @@ export function Modal({
     <dialog
       ref={dialogRef}
       className={cn(
-        'w-[calc(100vw-2rem)] rounded-2xl border border-zinc-200 bg-white p-0 shadow-2xl backdrop:bg-zinc-900/40',
+        'fixed left-1/2 top-1/2 m-0 -translate-x-1/2 -translate-y-1/2',
+        'w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] overflow-y-auto',
+        'rounded-2xl border border-zinc-200 bg-white p-0 shadow-2xl backdrop:bg-zinc-900/40',
         SIZES[size],
       )}
     >
