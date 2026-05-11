@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# PharmaTrack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A local-first inventory management SPA for small and medium pharmacies. Track medicines, monitor expiry dates, get low-stock alerts, and see your inventory at a glance — all stored in the browser, no backend required.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Dashboard** — Total medicines, inventory value, and alert counts surfaced as stat cards, plus a category distribution chart.
+- **Inventory** — Searchable, filterable table with add / edit / delete; persists across refresh via `localStorage`.
+- **Alerts** — Three live lists (expired, expiring within 30 days, low stock) computed from your inventory.
+- **Responsive** — Sidebar on desktop, hamburger drawer on mobile.
+- **Local-first** — No accounts, no network calls; your data lives in your browser.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript (strict mode)
+- Vite
+- Tailwind CSS v4
+- React Router v6
+- Recharts
+- Lucide React
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open <http://localhost:5173>.
+
+### Scripts
+
+| Command           | What it does                          |
+| ----------------- | ------------------------------------- |
+| `npm run dev`     | Start the Vite dev server with HMR    |
+| `npm run build`   | Type-check and build for production   |
+| `npm run preview` | Preview the production build locally  |
+| `npm run lint`    | Run ESLint                            |
+
+## Project Structure
+
+```
+src/
+├── components/        Shared UI (Button, Input, Modal, Table, Layout, …)
+├── features/
+│   ├── dashboard/     Stat cards + category chart
+│   ├── inventory/     Table, search, filters, add/edit/delete
+│   └── alerts/        Alert lists + reusable status utilities
+├── lib/               cn, date, currency helpers
+├── services/          Storage abstraction + LocalStorage impl + seed data
+└── types/             Global TypeScript interfaces
+```
+
+## Data & Storage
+
+All inventory lives under the `pharmatrack:medicines:v1` key in `localStorage`. On first load, the app seeds itself with 16 sample medicines covering every alert state so you can explore the UI immediately.
+
+Components never touch `localStorage` directly — they go through the `InventoryStorage` interface in `src/services/storage.ts`. Swapping in a different backend (Firebase, IndexedDB, REST API) only requires writing a new implementation behind that interface.
+
+### Resetting the data
+
+To start over with a fresh seed, clear the storage key:
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+// in DevTools console
+localStorage.removeItem('pharmatrack:medicines:v1');
+location.reload();
 ```
+
+## Alert Rules
+
+| Status         | Condition                                          | Color  |
+| -------------- | -------------------------------------------------- | ------ |
+| Expired        | Expiry date is in the past                         | Red    |
+| Expiring soon  | Not yet expired, within 30 days from today         | Orange |
+| Low stock      | `quantity < minQuantityThreshold`                  | Amber  |
+
+When multiple conditions apply, status priority is **expired → expiring-soon → low-stock**.
+
+## License
+
+For educational use.
